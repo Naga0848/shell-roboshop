@@ -1,21 +1,21 @@
-#!bin/bash
+#!/bin/bash
 
 AMI_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-0e46ce6da86ce403es"SG ID
+SG_ID="sg-01bc7ebe005fb1cb2" # replace with your SG ID
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "frontend")
 ZONE_ID="Z07792322A7JHE99VBAND" # replace with your ZONE ID
-DOMAIN_NAME="njanapati.site" # replace with your domain
+DOMAIN_NAME="njanapati.site" # replace it with your domain name
 
 #for instance in ${INSTANCES[@]}
 for instance in $@
 do
-    INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t3.micro --security-group-ids sg-0e46ce6da86ce403es "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instances[0].InstanceId" --output text)   # this command will create an instance and generates an instance_id for the future use
-    if [ $instance != "frontend" ]  # if the created instance is not equal to frontend
+INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t3.micro --security-group-ids sg-0e46ce6da86ce403e --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instances[0].InstanceId" --output text)   # this command will create an instance and generates an instance_id
+    if [ $instance != "frontend" ]
     then
-        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)  # this command gives the private IP
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
         RECORD_NAME="$instance.$DOMAIN_NAME"
     else
-        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIpAddress" --output text)  # this command gives the public IP
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
         RECORD_NAME="$DOMAIN_NAME"
     fi
     echo "$instance IP address: $IP"
