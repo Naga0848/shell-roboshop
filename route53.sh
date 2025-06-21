@@ -26,3 +26,6 @@ aws route53 change-resource-record-sets \
         }
         }]
     }' &> /home/ec2-user/shell-roboshop/roboshop.logs
+
+
+    echo "Record created $instance successfully created"
