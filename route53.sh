@@ -25,4 +25,4 @@ aws route53 change-resource-record-sets \
             }]
         }
         }]
-    }' &> /home/ec2-user/shell-roboshop
+    }' &> /home/ec2-user/shell-roboshop/roboshop.logs
