@@ -26,7 +26,7 @@ INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-
     {
         "Comment": "Creating or Updating a record set for cognito endpoint"
         ,"Changes": [{
-        "Action"              : "UPSERT"
+        "Action"              : "CREATE"
         ,"ResourceRecordSet"  : {
             "Name"              : "'$RECORD_NAME'"
             ,"Type"             : "A"
