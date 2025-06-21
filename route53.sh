@@ -25,4 +25,4 @@ aws route53 change-resource-record-sets \
             }]
         }
         }]
-    }' &> /dev/null
+    }' &> /dev/route53.logs
