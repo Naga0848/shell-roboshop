@@ -6,6 +6,7 @@ IP=$2
 
 instance=$3
 
+ZONE_ID=Z07792322A7JHE99VBAND
 
 
 aws route53 change-resource-record-sets \
